@@ -1,0 +1,35 @@
+using System;
+using System.DirectoryServices;
+
+namespace ExemploValidacaoLDAP
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Configurar os detalhes de conexão com o servidor LDAP
+            string ldapPath = "LDAP://seu-dominio.local";
+            string username = "nome-de-usuario";
+            string password = "senha-do-usuario";
+
+            // Criar um objeto DirectoryEntry
+            using (var entry = new DirectoryEntry(ldapPath, username, password))
+            {
+                try
+                {
+                    // Tentar autenticar usando as credenciais fornecidas
+                    object nativeObject = entry.NativeObject;
+
+                    // Se a autenticação for bem-sucedida, o objeto nativeObject será recuperado
+                    Console.WriteLine("Credenciais válidas. Usuário autenticado com sucesso.");
+                }
+                catch (Exception ex)
+                {
+                    // Se a autenticação falhar, uma exceção será lançada
+                    Console.WriteLine("Credenciais inválidas. Falha na autenticação do usuário.");
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
+    }
+}v
